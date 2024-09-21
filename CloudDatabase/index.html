@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="upload.css">
+    
+    <title>Document Upload</title>
+</head>
+<body>
+    <div id="header">
+        <div id="welcome">
+            <img src="arrow.png" alt="back" id="back">
+            <h3>Welcome, <span id="username"></span></h3> 
+        </div>
+    </div>
+    <div id="container">
+        <h1>Cloudify</h1>
+        <div id="upload">
+            <input type="file" id="fileInput" />
+            <button type="upload" id="uploadBtn">Upload</button>
+        </div>
+        <div id="issue"></div>
+        <div id="documents">
+            <h3>Your Documents</h3>
+            <div id="yourdocuments"></div> 
+        </div>
+        <div id="dev">
+            Developed by unemployed one!
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24">
+                <circle cx="32" cy="32" r="30" fill="#F0C419" />
+                <circle cx="22" cy="26" r="5" fill="#333" />
+                <circle cx="42" cy="26" r="5" fill="#333" />
+                <path d="M22,40 Q32,50 42,40" stroke="#333" stroke-width="4" fill="none"/>
+            </svg>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-storage.js";
+        import { getDatabase, ref as dbRef, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyArf0nLyawscbu_PH1kaeLW5IHSYhm_oJM",
+            authDomain: "clouddrive-b3ce8.firebaseapp.com",
+            databaseURL: "https://clouddrive-b3ce8-default-rtdb.firebaseio.com",
+            projectId: "clouddrive-b3ce8",
+            storageBucket: "clouddrive-b3ce8.appspot.com",
+            messagingSenderId: "367600785385",
+            appId: "1:367600785385:web:8d8ea32a524b528e011d78",
+            measurementId: "G-2LM9D9W6M8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+        const db = getDatabase(app);
+
+        const fileInput = document.getElementById("fileInput");
+        const uploadBtn = document.getElementById("uploadBtn");
+        const yourDocuments = document.getElementById("yourdocuments");
+        const usernameSpan = document.getElementById("username");
+        const uploadStatus = document.createElement('p');  
+        const issue = document.getElementById("issue");
+        uploadStatus.id = "uploadStatus";
+        yourDocuments.parentNode.appendChild(uploadStatus);
+
+        let userId = null;
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                userId = user.uid;
+                usernameSpan.textContent = user.displayName || user.email;  
+                loadUserDocuments(userId);  
+            } else {
+                alert("User not logged in!");
+            }
+        });
+
+        uploadBtn.addEventListener('click', function() {
+            const file = fileInput.files[0];
+            if (!file) {
+                issue.textContent = "Please first choose the document!";
+                setTimeout(() => issue.textContent = "", 3000);
+                return;
+            }
+
+            uploadStatus.innerHTML = `<img src ="loading.gif" alt="Loading..." style="width:150px;">`;
+
+            const storageRef = ref(storage, 'documents/' + userId + '/' + file.name);
+
+            uploadBytes(storageRef, file).then((snapshot) => {
+                getDownloadURL(storageRef)
+                    .then((url) => {
+                        const docRef = push(dbRef(db, 'users/' + userId + '/documents'));
+                        set(docRef, {
+                            fileName: file.name,
+                            fileURL: url
+                        });
+
+                        uploadStatus.textContent = "Upload completed successfully!";
+                        setTimeout(() => uploadStatus.textContent = "", 2000);
+                    })
+                    .catch((error) => {
+                        issue.innerHTML = error;
+                        setTimeout(() => issue.textContent = "", 3000);
+                    });
+            }).catch((error) => {
+                issue.innerHTML = error;
+                setTimeout(() => issue.textContent = "", 3000);
+            });
+        });
+
+        function loadUserDocuments(userId) {
+            const userDocsRef = dbRef(db, 'users/' + userId + '/documents');
+
+            onValue(userDocsRef, (snapshot) => {
+                yourDocuments.innerHTML = '';  
+
+                snapshot.forEach((childSnapshot) => {
+                    const doc = childSnapshot.val();
+                    const docKey = childSnapshot.key;
+                    addDocumentToPage(doc.fileName, doc.fileURL, docKey);
+                });
+            });
+        }
+
+        function addDocumentToPage(fileName, fileURL, docKey) {
+            const docElement = document.createElement('div');
+            docElement.className = 'document-item';
+            docElement.innerHTML = `
+                <p>${fileName}</p>
+                <button class="removeBtn" data-doc-key="${docKey}" data-file-url="${fileURL}">Remove</button>
+                <a href="${fileURL}" target="_blank" download>Download</a>
+            `;
+            yourDocuments.appendChild(docElement);
+
+            const removeBtn = docElement.querySelector('.removeBtn');
+            removeBtn.addEventListener('click', function() {
+                const fileKey = this.getAttribute('data-doc-key');
+                const fileURL = this.getAttribute('data-file-url');
+                const fileRef = ref(storage, fileURL);
+
+
+                deleteObject(fileRef).then(() => {
+                    remove(dbRef(db, 'users/' + userId + '/documents/' + fileKey));
+                }).catch((error) => {
+                    issue.textContent = error.message;
+                    setTimeout(() => issue.textContent = "", 3000);
+                });
+            });
+        }
+
+        const back = document.getElementById("back");
+        back.addEventListener('click', () => {
+            if (window.location.pathname !== "/signup.html") {
+                window.history.pushState({}, '', 'signup.html');
+                window.location.href = "signup.html";
+                window.history.replaceState(null, '', window.location.href);
+            }
+        });
+    </script>
+</body>
+</html>

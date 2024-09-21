@@ -1,0 +1,126 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body 
+{
+    margin-top: 40px;
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#image
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#image h5
+{
+    font-size: 20px;
+    font-style: italic;
+    background-image: linear-gradient(to right, #434f97, #f76e80);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+    margin: 10px;
+}
+#banner 
+{
+    width: 250px;
+}
+h1
+{
+    margin-top: 40px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: navy;
+}
+#contianer
+{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+button
+{
+    padding: 7px;
+    border: none;
+    background-color: navy;
+    border-radius: 3px;
+    font-weight: 600;
+    font-style: italic;
+    color:white;
+    cursor: pointer;
+}
+button:hover
+{
+    background-color: olive;
+    transition: 3s;
+}
+#form 
+{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    row-gap: 5px;
+}
+#name, #email, #password
+{
+    padding: 15px;
+    width: 350px;
+    background: transparent;
+    border: 1px solid navy;
+    border-radius: 5px;
+    outline: none;
+    color: navy;
+    font-weight: 600;
+    font-style: italic;
+}
+#name::placeholder, #email::placeholder, #password::placeholder
+{
+    font-weight: 500;
+    color: navy;
+    font-style: italic;
+}
+#google
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 5px;
+    cursor: pointer;
+}
+#googles
+{
+    width: 20px;
+    padding: 5px;
+    border: 1px solid navy;
+}
+p
+{
+    font-weight: 200;
+    font-size: 14px;
+    color: grey;
+    margin: 5px;
+}
+span 
+{
+    color: blue;
+    cursor: pointer;
+}
+#dev 
+{
+    position: absolute;
+    bottom: 0px;
+    font-weight: lighter;
+    font-size: 10px;
+    color: rgb(96, 96, 96);
+    font-style: italic;
+}

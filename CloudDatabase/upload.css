@@ -1,0 +1,322 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 10px;
+    background-color: white;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#fileInput
+{
+    padding: 10px;
+    border: none;
+}
+#container h1 
+{
+    background-image: linear-gradient(to right, #434f97, #f76e80);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+    margin-top: 50px;
+}
+#uploadBtn
+{
+    padding: 10px;
+    border: none;
+    background-color: navy;
+    width: 100px;
+    border-radius: 10px;
+    color: white;
+    font-style: italic;
+    font-weight: 700;
+    cursor: poi;
+}
+#header {
+    margin: 20px;
+}
+
+#upload, #documents {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcome h3 {
+    font-size: 25px;
+    color: navy;
+}
+#welcome 
+{
+    display: flex;
+    flex-direction: row;
+}
+#welcome h3 span {
+    color: grey;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#upload {
+    padding: 20px;
+    border: 1px solid navy;
+    border-radius: 5px;
+    width: 400px;
+    margin: 30px;
+}
+
+#noFilesText {
+    margin-top: 10px; 
+    color: grey;
+}
+
+#documents {
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid navy;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+#yourdocuments {
+    margin-top: 15px;  
+    width: 100%;
+}
+
+#yourdocuments div {
+    display: flex;                
+    justify-content: space-between;
+    align-items: center;
+    background-color: navy;
+    padding: 10px;
+    margin-bottom: 10px;          
+    border-radius: 5px;
+}
+
+#yourdocuments p {
+    margin: 0;
+    font-size: 14px;
+    color: white;
+}
+
+#yourdocuments a {
+    color: white;
+    text-decoration: none;
+    background-color: #333;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+#upload {
+    padding: 20px;
+    border: 1px solid navy;
+    width: 400px;
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+#fileInput {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid green;
+    background-color: navy;
+    color: white;
+    font-style: italic;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 15px; 
+    font-size: 14px;
+}
+
+
+#uploadBtn {
+    background-color: navy;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+#back 
+{
+    width: 20px;
+    padding: 5px;
+    margin-right:10px;
+    cursor: pointer;
+}
+
+#upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; 
+}
+
+#fileInput {
+    margin-bottom: 10px;
+}
+
+#documents {
+    margin-top: 30px;
+    border-radius: 5px;
+}
+
+#yourdocuments div {
+    margin-bottom: 10px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+#yourdocuments a{
+    margin-left: 20px;
+    background-color: white;
+    padding: 5px 10px;
+    color: black;
+    padding: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#uploadStatus {
+    font-size: 14px;
+    color: green;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#uploadStatus.error {
+    color: red;
+}
+#dev
+{
+    position: absolute;
+    bottom: 0;
+    margin: 5px;
+    font-size: 10px;
+    color: grey;
+    font-weight: 300;
+    font-style: italic;
+}
+#issue
+{
+    font-size: 15px;
+    color: red;
+    font-weight: 500;
+    font-style: italic;
+}
+#container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#documents {
+    margin-top: 20px;
+}
+
+#yourdocuments .document-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+
+a {
+    text-decoration: none;
+    color: #000;
+    margin-left: 5px;
+}#yourdocuments .document-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+#yourdocuments .document-item p {
+    flex: 1; /* File name takes up available space */
+    text-align: left; /* Aligns file name to the left */
+    margin: 0; /* Removes any extra margin */
+}
+
+#yourdocuments .document-item .buttons {
+    display: flex;
+    gap: 10px; /* Adds space between Remove and Download buttons */
+}
+
+
+
+.removeBtn, .downloadBtn {
+    background-color: white;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    position: relative;
+    right: 0px;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.document-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.document-item {
+    display: flex;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #1976D2;
+}
+#cloud
+{
+    position: absolute;
+    right: 0px;
+    margin: 6px;
+    color: grey;
+    font-size: 15px;
+    font-weight: 600;
+    font-style: italic;
+    margin-right: 20px;
+    
+}

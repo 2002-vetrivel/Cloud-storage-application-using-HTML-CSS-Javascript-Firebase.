@@ -1,0 +1,178 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ECF3FF;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    padding: 20px;
+}
+p{
+    font-size: 25px;
+}
+
+.hello {
+    display: flex;
+    justify-content: center;
+    font-size: 280px;
+    font-weight: bold;
+    color: #000;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -5px;
+}
+
+.astronaut-container {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 300px;
+}
+
+.astronaut {
+    width: 330px;
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.description {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+#get-started {
+    padding: 15px 30px;
+    background-color: #FFA500;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 800;
+    color: black;
+    font-style: italic;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#get-started:hover {
+    background-color: #ff8c00;
+}
+
+
+.cloud {
+    position: absolute;
+    opacity: 0.8;
+}
+.cloud1 {
+    top: 100px;
+    right: 85%;
+    width: 250px;
+    animation-duration: 18s;
+}
+
+.cloud2 {
+    top: -190px;
+    left: 75%;
+    width: 400px;
+    animation-duration: 22s;
+}
+
+.cloud3 {
+    bottom: -135px;
+    left: 10%;
+    width: 300px;
+    animation-duration: 26s;
+}
+.cloud4 {
+    top: -100px;
+    left: 30%;
+    width: 100px;
+    animation-duration: 26s;
+}
+
+@keyframes cloudFloat {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@media (max-width: 768px) {
+    .hello {
+        font-style: italic;
+        font-size:120px;
+        display: flex;
+        font-weight: 900;
+        justify-content: center;
+        text-align: center;
+        top: -40px;
+    }
+
+    .astronaut-container {
+        width: 230px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: -300px;
+    }
+
+    
+    .cloud1 {
+        top: -370px;
+        left: 0;
+        width: 200px;
+    }
+
+    .cloud2 {
+        top: 30px;
+        left: 10%;
+        width: 100px;
+    }
+
+    .cloud3 {
+        top: 60px;
+        left: 60%;
+        width: 200px;
+    }
+    .description {
+        font-size: 16px;
+    }
+    .get-started
+    {
+        top: auto;
+    }
+    #first 
+    {
+        margin-bottom: -270px;
+    }
+}
+

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="froms.css">
+</head>
+<body>
+    <div id="image">
+        <h5>Cloudify</h5>
+        <img src="loader.gif" alt="" id="banner">
+    </div>
+
+    <div id="container">
+        <h1>Sign Up</h1>
+        <div id="form">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button id="submit">Sign Up with Email</button>
+            <button id="google-signup">Sign Up with Google</button>
+        </div>
+    </div>
+
+    <div id="google">
+        <p>Already have an account? <span id="login">Log In</span></p>
+    </div>
+    <div id="issue">
+        
+    </div>
+
+    <p id="dev">Developed by unemployed one!</p>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyArf0nLyawscbu_PH1kaeLW5IHSYhm_oJM",
+            authDomain: "clouddrive-b3ce8.firebaseapp.com",
+            databaseURL: "https://clouddrive-b3ce8-default-rtdb.firebaseio.com",
+            projectId: "clouddrive-b3ce8",
+            storageBucket: "clouddrive-b3ce8.appspot.com",
+            messagingSenderId: "367600785385",
+            appId: "1:367600785385:web:8d8ea32a524b528e011d78",
+            measurementId: "G-2LM9D9W6M8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        const submitBtn = document.getElementById("submit");
+        const googleSignupBtn = document.getElementById("google-signup");
+        const issue = document.getElementById("issue");
+
+        submitBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (name && email && password) {
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+
+                        set(ref(db, 'users/' + user.uid), {
+                            username: name,
+                            email: email
+                        });
+
+                       issue.innerHTML = "Successfully signup!"
+                    })
+                    .catch((error) => {
+                        issue.innerHTML = error;
+
+                    });
+            } else {
+                issue.innerHTML = "Please enter all the details.";
+            }
+        });
+
+        googleSignupBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    const user = result.user;
+
+                    set(ref(db, 'users/' + user.uid), {
+                        username: user.displayName,
+                        email: user.email
+                    });
+
+                    window.location.href ="upload.html";
+                })
+                .catch((error) => {
+                    issue.innerHTML = error;
+
+                });
+        });
+        const login = document.getElementById("login");
+
+        login.addEventListener('click', ()=> 
+        {
+            window.location.href = "login.html";
+        })
+    </script>
+</body>
+</html>
